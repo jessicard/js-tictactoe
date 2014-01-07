@@ -77,15 +77,37 @@ function app ( jQuery ) {
         $("h1").text("O Won!");
         alert ("O Won!")
       };
+
       resetBoard();
+    }
+    else {
+      if (checkForStalemate(isWinner)) {
+        $("h1").text("Stalemate");
+        alert ("Stalemate");
+        resetBoard();
+      };
     };
+  };
+
+  function checkForStalemate( isWinner ) {
+    var flattenedBoard = [];
+    flattenedBoard = flattenedBoard.concat.apply(flattenedBoard, board);
+    var len = flattenedBoard.length
+
+    for (var i=0; i<len; ++i) {
+      if (flattenedBoard[i] === null) {
+        return false;
+      }
+    }
+
+    return true;
   };
 
   function resetBoard() {
     turns = 0;
     board = [[null, null, null],
-                 [null, null, null],
-                 [null, null, null]];
+             [null, null, null],
+             [null, null, null]];
 
     $(".board span").text("");
     $("h1").text("X Starts");
