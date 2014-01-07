@@ -63,6 +63,8 @@ function app ( jQuery ) {
         areEqual(row1[0], row2[1], row3[2]) ||
         areEqual(row1[2], row2[1], row3[0])) {
 
+      // debugger
+
       isWinner = true;
     }
 
@@ -81,7 +83,7 @@ function app ( jQuery ) {
 
   function resetBoard() {
     turns = 0;
-    var board = [[null, null, null],
+    board = [[null, null, null],
                  [null, null, null],
                  [null, null, null]];
 
