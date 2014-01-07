@@ -1,8 +1,8 @@
 function app ( jQuery ) {
 
-  var row1  = [null, null, null];
-  var row2  = [null, null, null];
-  var row3  = [null, null, null];
+  var board = [[null, null, null],
+               [null, null, null],
+               [null, null, null]];
   var turns = 0;
 
   $(".board > div span").on("click", function(){
@@ -16,19 +16,18 @@ function app ( jQuery ) {
   });
 
   function addPiece( turns, $this ) {
-    var htmlCell = $this;
-    var htmlRowClass = htmlCell.parent("div").attr("class");
-    var arrayRow = eval(htmlRowClass);
-    var arrayCell = eval($this.attr("class"))
+    var htmlCell = $this,
+        htmlCellData = htmlCell.data("cell"),
+        htmlRowData = htmlCell.parent("div").data("row");
 
     // X's turn
     if (turns % 2) {
-      arrayRow[arrayCell] = 0
+      board[htmlRowData][htmlCellData] = 0
       htmlCell.text("X")
     }
     // O's turn
     else {
-      arrayRow[arrayCell] = 1
+      board[htmlRowData][htmlCellData] = 1
       htmlCell.text("O")
     }
   };
@@ -46,6 +45,9 @@ function app ( jQuery ) {
 
   function checkForWinner( turns ) {
     var isWinner = false;
+    var row1     = board[0];
+    var row2     = board[1];
+    var row3     = board[2];
 
     if( // vertical
         areEqual(row1[0], row2[0], row3[0]) ||
@@ -79,9 +81,9 @@ function app ( jQuery ) {
 
   function resetBoard() {
     turns = 0;
-    row1  = [null, null, null];
-    row2  = [null, null, null];
-    row3  = [null, null, null];
+    var board = [[null, null, null],
+                 [null, null, null],
+                 [null, null, null]];
 
     $(".board span").text("");
     $("h1").text("X Starts");
