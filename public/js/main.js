@@ -3,7 +3,6 @@ function app ( jQuery ) {
   var row1  = [null, null, null];
   var row2  = [null, null, null];
   var row3  = [null, null, null];
-  var board = [row1, row2, row3];
   var turns = 0;
 
   $(".board > div span").on("click", function(){
@@ -17,26 +16,19 @@ function app ( jQuery ) {
   });
 
   function addPiece( turns, $this ) {
+    var htmlCell = $this;
+    var htmlRowClass = htmlCell.parent("div").attr("class");
+    var arrayRow = eval(htmlRowClass);
+    var arrayCell = eval($this.attr("class"))
+
     // X's turn
     if (turns % 2) {
-      var htmlCell = $this;
-      var htmlRowClass = htmlCell.parent("div").attr("class");
-      var arrayRow = eval(htmlRowClass);
-      var arrayCell = eval($this.attr("class"))
-
       arrayRow[arrayCell] = 0
-
       htmlCell.text("X")
     }
     // O's turn
     else {
-      var htmlCell = $this;
-      var htmlRowClass = htmlCell.parent("div").attr("class");
-      var arrayRow = eval(htmlRowClass);
-      var arrayCell = eval($this.attr("class"))
-
       arrayRow[arrayCell] = 1
-
       htmlCell.text("O")
     }
   };
@@ -86,24 +78,23 @@ function app ( jQuery ) {
   };
 
   function resetBoard() {
-    $(".board span").text("");
-    $("h1").text("X Starts");
-
     turns = 0;
-
     row1  = [null, null, null];
     row2  = [null, null, null];
     row3  = [null, null, null];
+
+    $(".board span").text("");
+    $("h1").text("X Starts");
   };
 
   function areEqual(){
-     var len = arguments.length;
-     for (var i = 1; i< len; i++){
-        if (arguments[i] == null || arguments[i] != arguments[i-1]) {
-          return false;
-        };
-     };
-     return true;
+    var len = arguments.length;
+    for (var i = 1; i< len; i++){
+      if (arguments[i] == null || arguments[i] != arguments[i-1]) {
+        return false;
+      };
+    };
+    return true;
   };
 }
 
