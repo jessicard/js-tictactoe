@@ -8,7 +8,6 @@ This app is built using my [static-heroku-rack-app](https://github.com/jessicard
 See live example [here](http://js-tictactoe.herokuapp.com/).
 
 ## To Do
-1. Make it so a player can't put a tile where a tile has already been placed
 1. Make a winning tally
 1. Pull out winning if statement into 3 separate for loops
 
