@@ -2,20 +2,25 @@ function app ( jQuery ) {
 
   var board = [[null, null, null],
                [null, null, null],
-               [null, null, null]];
-  var turns = 0;
+               [null, null, null]],
+      turns = 1;
 
   $(".board > div span").on("click", function(){
     $this = $(this);
 
-    turns++;
+    if (checkForExistingPiece($this)){
+      alert("There's already a piece there!")
+      return false;
+    }
+    else {
+      updateBoard($this, turns)
+    }
 
-    addPiece(turns, $this);
-    updateHeader(turns);
     checkForWinner(turns);
+    turns++
   });
 
-  function addPiece( turns, $this ) {
+  function updateBoard( $this, turns ) {
     var htmlCell = $this,
         htmlCellData = htmlCell.data("cell"),
         htmlRowData = htmlCell.parent("div").data("row");
@@ -30,6 +35,14 @@ function app ( jQuery ) {
       board[htmlRowData][htmlCellData] = 1
       htmlCell.text("O")
     }
+    updateHeader(turns);
+  }
+
+  function checkForExistingPiece( $this ) {
+    if ($this.text().trim().length) {
+      return true;
+    }
+    return false;
   };
 
   function updateHeader( turns ) {
