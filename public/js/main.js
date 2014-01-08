@@ -76,8 +76,6 @@ function app ( jQuery ) {
         areEqual(row1[0], row2[1], row3[2]) ||
         areEqual(row1[2], row2[1], row3[0])) {
 
-      // debugger
-
       isWinner = true;
     }
 
