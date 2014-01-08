@@ -1,4 +1,4 @@
-function app ( jQuery ) {
+function app(jQuery) {
 
   var board = [[null, null, null],
                [null, null, null],
@@ -6,37 +6,37 @@ function app ( jQuery ) {
       turns = 1;
 
   $(".board > div span").on("click", function(){
-    $this = $(this);
+    var $this = $(this);
 
     if (checkForExistingPiece($this)){
-      alert("There's already a piece there!")
+      alert("There's already a piece there!");
       return false;
     }
     else {
-      updateBoard($this, turns)
+      updateBoard($this, turns);
     }
 
     checkForWinner(turns);
-    turns++
+    turns++;
   });
 
-  function updateBoard( $this, turns ) {
+  function updateBoard($this, turns) {
     var htmlCell = $this,
         htmlCellData = htmlCell.data("cell"),
         htmlRowData = htmlCell.parent("div").data("row");
 
     // X's turn
     if (turns % 2) {
-      board[htmlRowData][htmlCellData] = 0
-      htmlCell.text("X")
+      board[htmlRowData][htmlCellData] = 0;
+      htmlCell.text("X");
     }
     // O's turn
     else {
-      board[htmlRowData][htmlCellData] = 1
-      htmlCell.text("O")
+      board[htmlRowData][htmlCellData] = 1;
+      htmlCell.text("O");
     }
     updateHeader(turns);
-  }
+  };
 
   function checkForExistingPiece( $this ) {
     if ($this.text().trim().length) {
@@ -45,18 +45,18 @@ function app ( jQuery ) {
     return false;
   };
 
-  function updateHeader( turns ) {
+  function updateHeader(turns) {
     // X just went, time for O!
     if ( turns % 2 ) {
-      $("h1").text("O's Turn")
+      $("h1").text("O's Turn");
     }
     // O just went, time for X!
     else {
-      $("h1").text("X's Turn")
-    };
+      $("h1").text("X's Turn");
+    }
   };
 
-  function checkForWinner( turns ) {
+  function checkForWinner(turns) {
     var isWinner = false;
     var row1     = board[0];
     var row2     = board[1];
@@ -82,13 +82,12 @@ function app ( jQuery ) {
     if ( isWinner ) {
       if (turns % 2) {
         $("h1").text("X Won!");
-        alert ("X Won!")
+        alert ("X Won!");
       }
       else if ( isWinner ) {
         $("h1").text("O Won!");
-        alert ("O Won!")
-      };
-
+        alert ("O Won!");
+      }
       resetBoard();
     }
     else {
@@ -96,22 +95,22 @@ function app ( jQuery ) {
         $("h1").text("Stalemate");
         alert ("Stalemate");
         resetBoard();
-      };
-    };
+      }
+    }
   };
 
-  function checkForStalemate( isWinner ) {
+  function checkForStalemate(isWinner) {
     var flattenedBoard = [];
     flattenedBoard = flattenedBoard.concat.apply(flattenedBoard, board);
     var len = flattenedBoard.length
 
-    for (var i=0; i<len; ++i) {
+    for (var i = 0; i < len; i++) {
       if (flattenedBoard[i] === null) {
-        return false;
+        return false
       }
     }
 
-    return true;
+    return true
   };
 
   function resetBoard() {
@@ -126,13 +125,13 @@ function app ( jQuery ) {
 
   function areEqual(){
     var len = arguments.length;
-    for (var i = 1; i< len; i++){
+    for (var i = 1; i < len; i++){
       if (arguments[i] == null || arguments[i] != arguments[i-1]) {
-        return false;
-      };
-    };
-    return true;
+        return false
+      }
+    }
+    return true
   };
-}
+};
 
-$( document ).ready( app );
+$(document).ready(app);
